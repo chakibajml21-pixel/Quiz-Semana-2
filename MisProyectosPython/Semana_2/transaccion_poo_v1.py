@@ -35,8 +35,9 @@ def leer_y_almacenar_datos(nombre_archivo):
     with open(nombre_archivo, "r", encoding="utf-8") as archivo:
         for linea in archivo:
             producto_id, categoria, valor = linea.strip().split(",")
-            venta = Venta(producto_id, categoria, valor)  # se crea un OBJETO
-            ventas.append(venta)                          # se almacena el OBJETO
+            if int(valor) > 0:  # solo se crean objetos si el valor es positivo
+                venta = Venta(producto_id, categoria, valor)  # se crea un OBJETO
+                ventas.append(venta)                          # se almacena el OBJETO
     return ventas
 
 
@@ -65,7 +66,7 @@ def ejecutar_sistema():
     print("\nValor total de las ventas:", calcular_valor_total(ventas))
 
     print("\n--- Solo ELECTRONICA ---")
-    for venta in filtrar_por_categoria(ventas, "ELECTRONICA"):
+    for venta in filtrar_por_categoria(ventas, "JUGUETERIA"):
         print(venta.obtener_informacion())
 
 
