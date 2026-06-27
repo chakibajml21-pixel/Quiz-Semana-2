@@ -17,14 +17,17 @@ class Empresa:
     def __init__(self, nombre, sector, num_empleados, ingresos_anuales):
         # TODO: guarda cada parametro como un atributo del objeto (self.xxx = ...).
         #       Recuerda convertir num_empleados e ingresos_anuales a numero con int().
-        pass
-
-    def obtener_informacion(self):
+        self.nombre = nombre
+        self.sector = sector
+        self.num_empleados = int(num_empleados)
+        self.ingresos_anuales = int(ingresos_anuales)
+    
         """Devuelve los datos de la empresa como un texto legible."""
         # TODO: devuelve un texto con los datos del objeto, por ejemplo:
         #       "TechNova | TECNOLOGIA | 150 empleados | $500000000"
         #       Usa un f-string con los atributos de self.
-        return ""
+    def obtener_informacion(self):
+        return f"{self.nombre}| {self.sector} | {self.num_empleados} empleados | ${self.ingresos_anuales}"
 
 
 # 2) Leer el archivo y crear una LISTA DE OBJETOS Empresa
@@ -39,7 +42,9 @@ def leer_empresas(nombre_archivo):
         for linea in archivo:
             nombre, sector, num_empleados, ingresos_anuales = linea.strip().split(",")
             # TODO: si int(num_empleados) > 0, crea un objeto Empresa y agregalo a la lista.
-            pass
+            if int(num_empleados) > 0:
+                empresa = Empresa(nombre, sector, num_empleados, ingresos_anuales)
+                empresas.append(empresa)
     return empresas
 
 
@@ -47,15 +52,22 @@ def leer_empresas(nombre_archivo):
 def calcular_total_ingresos(empresas):
     """Devuelve la suma de los ingresos_anuales de todas las empresas."""
     # TODO: recorre la lista y suma el atributo ingresos_anuales de cada empresa.
-    return 0
-
+    total = 0
+    for empresa in empresas:
+        total += empresa.ingresos_anuales
+    return total
 
 # 4) Quedarse solo con las empresas de un sector
 def filtrar_por_sector(empresas, sector):
     """Devuelve una lista con las empresas cuyo sector coincide."""
     # TODO: devuelve una lista solo con las empresas de ese sector.
-    return []
+    lista_filtrada =[]
 
+    for empresa in empresas:
+        if empresa.sector == sector:
+            lista_filtrada.append(empresa)
+
+    return lista_filtrada       
 
 # 5) Encontrar la empresa con mas empleados
 def empresa_con_mas_empleados(empresas):
@@ -70,7 +82,13 @@ def promedio_empleados(empresas):
     """Devuelve el promedio de empleados de todas las empresas."""
     # TODO: suma los empleados y divide entre la cantidad de empresas.
     #       Si la lista esta vacia, devuelve 0 (evita dividir entre cero).
-    return 0
+    if len(empresas) == 0:
+        return 0
+    total_empleados = 0
+    for empresa in empresas:
+        total_empleados += empresa.num_empleados
+    promedio_empleados = total_empleados / len(empresas)
+    return promedio_empleados
 
 
 # 7) Funcion principal: usa todo lo anterior y muestra los resultados
