@@ -12,7 +12,7 @@ Este proyecto es un ejercicio de programación en Python donde se procesan datos
 1. Coloca el archivo `empresas.txt` en el mismo directorio que el script Python.
 2. Ejecuta el script con Python:
    ```bash
-   python nombre_del_script.py
+   python quiz_empresas.py
    ```
 3. El programa debe mostrar las empresas filtradas y el promedio de empleados.
 
